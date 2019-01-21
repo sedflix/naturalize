@@ -141,13 +141,13 @@ public class LeaveOneOutEvaluator {
     public static void main(String[] args) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException,
             SerializationException {
-//        if (args.length < 5) {
+//        if (args.length < 5) {1
 //            System.err
 //                    .println("Usage <folder> <tokenizerClass> <wrapperClass> variable|method <renamingClass> [<renamerConstrParams> ..]");
 //            return;
 //        }
 
-        final File directory = new File("/home/sid/projects/mast-group/codemining-core");
+        final File directory = new File(args[0]);
 
         final Class<? extends ITokenizer> tokenizerName = (Class<? extends ITokenizer>) Class
                 .forName("codemining.java.tokenizers.JavaTokenizer");
