@@ -3,7 +3,14 @@
  */
 package renaming.renamers;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import codemining.languagetools.Scope;
+import codemining.languagetools.bindings.TokenNameBinding;
+import codemining.lm.ngram.AbstractNGramLM;
+import codemining.lm.ngram.NGram;
+import com.google.common.collect.*;
+import com.google.common.collect.Multiset.Entry;
+import com.google.common.math.DoubleMath;
+import org.apache.commons.lang.exception.ExceptionUtils;
 
 import java.io.File;
 import java.util.Collection;
@@ -12,21 +19,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.logging.Logger;
 
-import org.apache.commons.lang.exception.ExceptionUtils;
-
-import codemining.languagetools.Scope;
-import codemining.languagetools.bindings.TokenNameBinding;
-import codemining.lm.ngram.AbstractNGramLM;
-import codemining.lm.ngram.NGram;
-
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Multiset;
-import com.google.common.collect.Multiset.Entry;
-import com.google.common.collect.Multisets;
-import com.google.common.collect.Sets;
-import com.google.common.collect.TreeMultiset;
-import com.google.common.math.DoubleMath;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Retrieve and score potential renamings.
@@ -60,14 +53,18 @@ public abstract class AbstractIdentifierRenamings implements
 	public SortedSet<Renaming> calculateScores(
 			final Multiset<NGram<String>> ngrams,
 			final Set<String> alternatives, final Scope scope) {
-		final SortedSet<Renaming> scoreMap = Sets.newTreeSet();
+
+	    final SortedSet<Renaming> scoreMap = Sets.newTreeSet();
 
 		for (final String identifierName : alternatives) {
 			double score = 0;
+			if(score > 0 ) {
+                System.out.println(identifierName);
+            }
 			for (final Entry<NGram<String>> ngram : ngrams.entrySet()) {
 				try {
 					final NGram<String> identNGram = NGram.substituteTokenWith(
-							ngram.getElement(), WILDCARD_TOKEN, identifierName);
+                            ngram.getElement(), WILDCARD_TOKEN, identifierName);
 					final double ngramScore = scoreNgram(identNGram);
 					score += DoubleMath.log2(ngramScore) * ngram.getCount();
 				} catch (final Throwable e) {

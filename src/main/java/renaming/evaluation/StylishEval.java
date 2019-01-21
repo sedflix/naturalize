@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package renaming.evaluation;
 
@@ -49,15 +49,15 @@ import com.google.common.collect.Sets;
 /**
  * Evaluate stylish? using custom perturbation. Bad and hacky to get the result
  * asap. Sorry.
- * 
+ *
  * @author Miltos Allamanis <m.allamanis@edd.ac.uk>
- * 
+ *
  */
 public class StylishEval {
 
 	/**
 	 * Simple struct containing the stylish thresholds for a single snippet
-	 * 
+	 *
 	 */
 	public static class EvaluationResult {
 		public double whitespaceRejectionScore;
@@ -126,7 +126,7 @@ public class StylishEval {
 	public static final int N_SNIPPETS = 12;
 
 	/**
-	 * 
+	 *
 	 */
 	public StylishEval(final File directory, final ITokenizer codeTokenizer,
 			final IScopeExtractor extractor) {
@@ -139,7 +139,7 @@ public class StylishEval {
 	/**
 	 * Pick the files where we will evaluate on and build the identifier
 	 * renamer.
-	 * 
+	 *
 	 * @param renamer
 	 * @return
 	 */
